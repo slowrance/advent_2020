@@ -95,6 +95,12 @@ for passport in passport_list:
     hcl = passport.get('hcl')
     ecl = passport.get('ecl')
     pid = passport.get('pid')
-    if all([valid_byr(byr), valid_iyr(iyr), valid_eyr(eyr), valid_hgt(hgt), valid_hcl(hcl), valid_ecl(ecl), valid_pid(pid)]):
+    if all([valid_byr(byr),
+            valid_iyr(iyr),
+            valid_eyr(eyr),
+            valid_hgt(hgt),
+            valid_hcl(hcl),
+            valid_ecl(ecl),
+            valid_pid(pid)]):
         valid_count += 1
 print(valid_count)
