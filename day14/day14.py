@@ -11,7 +11,7 @@ mem[42] = 100
 mask = 00000000000000000000000000000000X0XX
 mem[26] = 1'''.splitlines()
 
-initialization = test_input_2
+initialization = real_input
 
 # part 1
 memory = {}
@@ -40,34 +40,35 @@ print(sum(memory.values()))
 # part 2
 def make_masks(mask, value):
     results = ['' for _ in range(36)]
+
     new_mask = list(mask)
     string_value = f'{int(value):b}'.zfill(36)
+    new_value = list(string_value)
+
     for i, char in enumerate(mask):
-        new_value = list(string_value)
+
         if char == 'X':
-            new_mask[i] = '0'
-            # new_value = list(string_value)
-            new_value[i] = '0'
-            new_value = ''.join(new_value)
-            make_masks(new_mask, int(new_value, 2))
-            new_mask[i] = '1'
-            # new_value = list(string_value)
-            new_value[i] = '1'
-            new_value = ''.join(new_value)
-            make_masks(new_mask, int(new_value, 2))
+
+            for val in ['0', '1']:
+                new_value[i] = val
+                new_mask[i] = '0'
+                make_masks(new_mask, int(''.join(new_value), 2))
+
         elif char == '0':
             new_value[i] = string_value[i]
         elif char == '1':
             new_value[i] = '1'
         if i == len(mask) - 1:
-            results.append(''.join(new_value))
-    return set(results)
+            possibles.add(''.join(new_value))
+
 
 memory = {}
 current_mask = ''
-
+possibles = set()
 for line in initialization:
+
     command, value = line.split(' = ')
+    mem_addresses = []
     if command == 'mask':
         current_mask = value
 
@@ -76,12 +77,13 @@ for line in initialization:
         masks = []
         position = command[4:-1]
         make_masks(current_mask, position)
-        for mem in masks:
-            #
-            # write_position = int(position) | int(value, 2)
+
+        for mem in set(possibles):
             value = int(value)
             memory[int(mem, 2)] = value
+        possibles = set()
 
 
 print(memory)
+print(sum(memory.values()))
 
