@@ -65,9 +65,9 @@ def update_matrix(matrix):
                     new_matrix[z][y][x] = '#'
     return new_matrix
 
-for z in initial:
-    for y in z:
-        print(y)
+# for z in initial:
+#     for y in z:
+#         print(y)
 # for z, plane in enumerate(initial):
 #     for y, row in enumerate(plane):
 #         for x, col in enumerate(row):
@@ -77,20 +77,20 @@ size = len(used_input)
 matrix = copy.deepcopy(initial)
 for _ in range(6):
     matrix = grow_matrix(matrix, size)
-    for z in matrix:
-        print('\n')
-        for y in z:
-            print(y)
+    # for z in matrix:
+    #     print('\n')
+    #     for y in z:
+    #         print(y)
     matrix = update_matrix(matrix)
-    for z in matrix:
-        print('\n')
-        for y in z:
-            print(y)
+    # for z in matrix:
+    #     print('\n')
+    #     for y in z:
+    #         print(y)
     size += 2
-for z in matrix:
-    print('\n')
-    for y in z:
-        print(y)
+# for z in matrix:
+#     print('\n')
+#     for y in z:
+#         print(y)
 
 count = 0
 for z, plane in enumerate(matrix):
